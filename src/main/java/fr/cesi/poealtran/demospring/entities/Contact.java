@@ -1,5 +1,6 @@
 package fr.cesi.poealtran.demospring.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,8 @@ public class Contact {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     @Column(name="lastname")
+    // annotation from Jackson to personalize json format
+    @JsonProperty("lastname")
     private String name;
     @Length(min=3, max=55)
     private String firstname;
