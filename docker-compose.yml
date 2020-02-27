@@ -1,0 +1,29 @@
+# declarer la version
+version: '3'
+# delcarer les services (containers)
+services:
+  # docker run --name=db -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root ... mysql
+  # nom du service
+  mydb:
+    image: mysql
+    # dont need to expose port if we don't want to access mysql outside
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: springuser
+      MYSQL_PASSWORD: ThePassword
+      MYSQL_DATABASE: demospringcrm
+  # docker run --name spring -p 8080:8080 -e MYSQL_HOST=
+  spring:
+    # run service db before this
+    depends_on:
+      - mydb
+    # instead an image - build with a Docker
+    # build: .
+    build:
+      # directory
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8282"
